@@ -1,0 +1,57 @@
+using Ders23_09_2022.Properties;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Ders23_09_2022
+{
+    public partial class Form3 : Form
+    {
+        public Form3()
+        {
+            InitializeComponent();
+        }
+        int kasa = 100; // Başta Elimizde Olan Para Miktarı
+        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            int sayi1 = random.Next(1,5);     // 5 Adet Resım Arasında Random Olarak Gezmek İçin Random Atadım
+            int sayi2 = random.Next(1,5);
+            int sayi3 = random.Next(1,5);
+            pictureBox1.Image = Image.FromFile("C:\\Users\\Bartu\\Desktop\\C# Örnekleri\\Ders23-09-2022\\Ders23-09-2022\\resources\\" + sayi1+ ".png"); // Atanılan Randomlar İle Dosyalar Aynı İsme Sahip Olmalı
+            pictureBox2.Image = Image.FromFile("C:\\Users\\Bartu\\Desktop\\C# Örnekleri\\Ders23-09-2022\\Ders23-09-2022\\resources\\" + sayi2+ ".png");
+            pictureBox3.Image = Image.FromFile("C:\\Users\\Bartu\\Desktop\\C# Örnekleri\\Ders23-09-2022\\Ders23-09-2022\\resources\\" + sayi3+ ".png");
+
+       
+
+            if (sayi1==sayi2&&sayi2==sayi3) // Aynı Anda 3 Resim de Aynı Gelirse 3 Katı Kazanılıyor
+            {
+                MessageBox.Show("3 Katını Kazandınız ! ! ");
+                kasa+=Convert.ToInt32(txtjeton.Text)*3*Convert.ToInt32(txtcarpan.Text); 
+            }
+            else if (sayi1==sayi2 || sayi2==sayi3 || sayi1==sayi3) // Herhangi 2 Resim Aynı Gelirse 2 Katı Kazanılıyor 
+            {
+                MessageBox.Show("2 Katını Kazandınız ! ! ");
+                kasa += Convert.ToInt32(txtjeton.Text) * 2 * Convert.ToInt32(txtcarpan.Text);
+            }
+            else
+            {
+                MessageBox.Show("Kaybettiniz ! ! ");   // Hepsi Farklı Gelirse de Kayıp !
+                kasa -= Convert.ToInt32(txtjeton.Text) * Convert.ToInt32(txtcarpan.Text);
+            }
+            label4.Text = kasa.ToString();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            label4.Text=kasa.ToString();
+        }
+    }
+}
